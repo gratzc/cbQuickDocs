@@ -35,7 +35,4 @@
 			})
 		});
 	</script>
-	<!--- temporary including here for ease --->
-	<link rel="stylesheet" type="text/css" media="screen" href="/modules/cbquickdocs/includes/styles/colorbox/colorbox.css" />
-	<script src="/modules/cbquickdocs/includes/javascript/jquery.colorbox-min.js" type="text/javascript"></script>
 </cfoutput>

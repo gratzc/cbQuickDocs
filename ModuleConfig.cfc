@@ -69,7 +69,7 @@ component {
 
 		// Layout Settings
 		layoutSettings = {
-			defaultLayout = ""
+			defaultLayout = "Layout.cbQuickDocs.cfm"
 		};
 
 		// datasources
