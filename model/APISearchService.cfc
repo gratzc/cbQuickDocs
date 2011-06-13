@@ -15,7 +15,8 @@
 		<cfargument name="searchString" required="true" hint="The string to search on">
 		<cfscript>
 			var fileName = API & ".json";
-			var data = fileRead(expandPath("/modules/cbquickdocs/model/data/#fileName#"));
+			var filePath = getDirectoryFromPath(getCurrentTemplatePath()) & "data\" & fileName;
+			var data = fileRead(filePath);
 			data = deserializeJSON(data);
 			var qryAllApi = arrayOfStructuresToQuery(data);
 			var searchresults = queryNew("new");
@@ -31,7 +32,8 @@
 	</cffunction>
 
 	<cffunction name="getAvailableAPIs" access="public" returntype="Array" output="false" hint="Return an array of the avaiable APIs in the system">
-		<cfdirectory action="list" directory="#expandPath('/modules/cbquickdocs/model/data')#" name="APIs" />
+		<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data\" />
+		<cfdirectory action="list" directory="#dir#" name="APIs" />
 		<cfset arrayAPIs = [] />
 		<cfoutput query="APIs">
 			<cfset arrayAppend(arrayAPIs,left(name,len(name)-5)) />
