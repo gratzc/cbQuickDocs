@@ -68,6 +68,7 @@
 					//if its an inpage link, then its a method
 					if(find("##",methodLink)) {
 						var methodName = listLast(methodLink,"##");
+						methodLink = methodLink & "()";
 						//ignore init and skip top
 						if(methodName NEQ "init" and methodName NEQ "skip-navbar_top") {
 							//add the method to our list of methods for this API and collect its meta data

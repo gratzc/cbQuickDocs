@@ -1,7 +1,7 @@
 <cfoutput>
 	<div>
 		<form name="dataForm"id="dataForm" action="#event.buildLink(prc.xehConvertAPI)#" method="post">
-			<label for="apiURL">API URL:</label><input type="text" name="apiURL">
+			<label for="apiURL">API Base URL:</label><input type="text" name="apiURL">
 			<input type="submit" id="btnSubmit" value="convert">
 		</form>
 	</div>
