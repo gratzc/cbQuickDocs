@@ -3,17 +3,19 @@
 */
 component{
 
-	function index(event){
-		var rc = event.getCollection();
-		var prc = event.getCollection(private=true);
-		prc.xehConvertAPI = "cbquickdocs.data.convertAPI";
-		prc.APIs = getModel('APISearchService').getAvailableAPIs();
-	}	function convertAPI(event){
-		var rc = event.getCollection();
+	property name="APISearchService" 		inject;
+	property name="APIDataConvertorService" inject;
 
-		getModel('APIDataConvertorService').convert(rc.apiURL);
+
+	function index(event,rc,prc){
+		prc.xehConvertAPI = "cbquickdocs.data.convertAPI";
+		prc.APIs = APISearchService.getAvailableAPIs();
+	}	function convertAPI(event,rc,prc){
+		
+		APIDataConvertorService.convert(rc.apiURL);
 
 		getPlugin("MessageBox").info("#rc.apiURL# has been converted and can now be used");
+		
 		setNextEvent('cbquickdocs.data.index');
 	}
 
