@@ -22,7 +22,7 @@
 		<cfset var aClassLinks = getClassLinks(cfhttp.fileContent) />
 		<cfset var methods = getMethods(aClassLinks) />
 		<cfset var apiName = listLast(arguments.apiURL,"/") />
-		<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data\" />
+		<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" />
 		<cfif not directoryExists(dir)>
 			<cfdirectory action="create" directory="#dir#" />
 		</cfif>
