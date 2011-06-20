@@ -1,5 +1,6 @@
 <cfcomponent hint="I provide the utility for searching through the APIs" output="false" singleton="true">
-
+	<!---dependencies--->
+	<cfproperty name="cache" inject="coldbox:cacheManager">
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
 	<cffunction name="init" access="public" returntype="APISearchService" output="false" hint="constructor">
@@ -14,11 +15,19 @@
 		<cfargument name="API" required="true" hint="The API to search">
 		<cfargument name="searchString" required="true" hint="The string to search on">
 		<cfscript>
-			var fileName = API & ".json";
-			var filePath = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" & fileName;
-			var data = fileRead(filePath);
-			data = deserializeJSON(data);
-			var qryAllApi = arrayOfStructuresToQuery(data);
+			var cacheKey = "cbquickdocs_" & arguments.API;
+			//var cache = OCM.getDefaultCache();
+			//check to see if the API is already cached
+			if(cache.lookup(cacheKey)) {
+				var qryAllApi = cache.get(cacheKey);
+			} else {
+				var fileName = arguments.API & ".json";
+				var filePath = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" & fileName;
+				var data = fileRead(filePath);
+				data = deserializeJSON(data);
+				var qryAllApi = arrayOfStructuresToQuery(data);
+				cache.set(cacheKey,qryAllApi);
+			}
 			var searchresults = queryNew("new");
 		</cfscript>
 		<cfquery name="searchresults" dbtype="query">
@@ -32,12 +41,20 @@
 	</cffunction>
 
 	<cffunction name="getAvailableAPIs" access="public" returntype="Array" output="false" hint="Return an array of the avaiable APIs in the system">
-		<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" />
-		<cfdirectory action="list" directory="#dir#" name="APIs" />
-		<cfset arrayAPIs = [] />
-		<cfoutput query="APIs">
-			<cfset arrayAppend(arrayAPIs,left(name,len(name)-5)) />
-		</cfoutput>
+		<cfset var arrayAPIs = [] />
+		<cfset var cacheKey = "cbquickdocs_AvailableAPIs" />
+		<!---<cfset var cache = OCM.getDefaultCache() />--->
+		<cfif (cache.lookup(cacheKey))>
+			<cfset arrayAPIs = cache.get(cacheKey) />
+		<cfelse>
+			<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" />
+			<cfdirectory action="list" directory="#dir#" name="APIs" />
+			<cfset var arrayAPIs = [] />
+			<cfoutput query="APIs">
+				<cfset arrayAppend(arrayAPIs,left(name,len(name)-5)) />
+			</cfoutput>
+			<cfset cache.set(cacheKey,arrayAPIs) />
+		</cfif>
 		<cfreturn arrayAPIs />
 	</cffunction>
 

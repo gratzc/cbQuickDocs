@@ -2,8 +2,11 @@
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
+	<!---dependencies--->
 	<cfproperty name="PlainTextConvertor" inject="coldbox:myPlugin:PlainTextConvertor@cbquickdocs">
+	<cfproperty name="cache" inject="coldbox:cacheManager">
 
+	<!--- set a long request timeout as this takes a while --->
 	<cfsetting requestTimeout="3600" />
 
 	<cffunction name="init" access="public" returntype="APIDataConvertorService" output="false" hint="constructor">
@@ -27,6 +30,10 @@
 			<cfdirectory action="create" directory="#dir#" />
 		</cfif>
 		<cfset var filePath = dir & apiName & ".json" />
+		<!--- clear the cache for this api --->
+		<cfset var apicacheKey = "cbquickdocs_" & apiName />
+		<cfset cache.clear('cbquickdocs_AvailableAPIs') />
+		<cfset cache.clear(apicacheKey) />
 		<cffile action="write" file="#filePath#" output="#serializeJSON(methods)#" />
 	</cffunction>
 
