@@ -2,7 +2,7 @@
 * The CBQuickDocs search event handler
 */
 component{
-	
+
 	property name="APISearchService" inject;
 	property name="CookieStorage" inject="coldbox:plugin:CookieStorage";
 
@@ -19,7 +19,9 @@ component{
 
 	function search(event,rc,prc){
 		var api = CookieStorage.getVar("api","ColdboxDocs-3.0.0");
-		prc.results = APISearchService.search(api,rc.searchString);
+		var searchMethodNames = event.getValue("methodNames",false);
+		var searchClassNames = event.getValue("classNames",false);
+		prc.results = APISearchService.search(api,rc.searchString,searchMethodNames,searchClassNames);
 		event.renderData(data=renderView('search/search'));
 	}
 
