@@ -2,6 +2,8 @@
 	<div>
 		<form name="searchForm" id="searchForm" action="#event.buildLink(prc.xehSearch)#" method="post">
 			<input type="text" name="searchString">
+			<label for="methodNames">Search Method Names</label><input type="checkbox" name="methodNames" checked="true" value="true" />
+			<label for="classNames">Search Class Names</label><input type="checkbox" name="classNames" checked="true" value="true" />
 			<input type="submit" value="search">
 		</form>
 	</div>
