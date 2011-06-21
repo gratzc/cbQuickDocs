@@ -1,8 +1,14 @@
 <cfoutput>
-	<div>
+	<div class="search">
 		<form name="searchForm" id="searchForm" action="#event.buildLink(prc.xehSearch)#" method="post">
-			<input type="text" name="searchString">
-			<input type="submit" value="search">
+			<label>
+				<span>
+				<!---<input type="text" name="searchString">--->
+				<!---<input type="submit" value="search">--->
+					<input name="searchString" type="text" class="keywords" id="textfield" maxlength="50" value="Search..." onclick="if(this.value=='Search...'){this.value=''}">
+				</span>
+				<input name="b" type="image" src="<cfoutput>#event.getModuleRoot()#</cfoutput>/includes/images/search.gif" class="button">
+			</label>
 		</form>
 	</div>
 	<div>
