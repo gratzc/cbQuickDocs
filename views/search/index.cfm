@@ -7,6 +7,8 @@
 				<!---<input type="submit" value="search">--->
 					<input name="searchString" type="text" class="keywords" id="textfield" maxlength="50" value="Search..." onclick="if(this.value=='Search...'){this.value=''}">
 				</span>
+				<label for="methodNames">Search Method Names</label><input type="checkbox" name="methodNames" checked="true" value="true" />
+				<label for="classNames">Search Class Names</label><input type="checkbox" name="classNames" checked="true" value="true" />
 				<input name="b" type="image" src="<cfoutput>#event.getModuleRoot()#</cfoutput>/includes/images/search.gif" class="button">
 			</label>
 		</form>

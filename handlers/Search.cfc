@@ -3,31 +3,30 @@
 */
 component{
 
-	function index(event){
-		var rc = event.getCollection();
-		var prc = event.getCollection(private=true);
+	property name="APISearchService" inject;
+	property name="CookieStorage" inject="coldbox:plugin:CookieStorage";
+
+	function index(event,rc,prc){
 
 		//set the current API and the available APIs
-		prc.api = getPlugin("cookieStorage").getVar("api","ColdboxDocs-3.0.0");
-		prc.APIs = getModel('APISearchService').getAvailableAPIs();
+		prc.api = CookieStorage.getVar("api","ColdboxDocs-3.0.0");
+		prc.APIs = APISearchService.getAvailableAPIs();
 
 		//xeh
 		prc.xehSearch = "cbQuickDocs.search.search";
 		prc.xehSwitchAPI = "cbQuickDocs.search.switchAPI";
 	}
 
-	function search(event){
-		var rc = event.getCollection();
-		var prc = event.getCollection(private=true);
-		var api = getPlugin("cookieStorage").getVar("api","ColdboxDocs-3.0.0");
-		prc.results = getModel('APISearchService').search(api,rc.searchString);
-		return renderView('search/search');
+	function search(event,rc,prc){
+		var api = CookieStorage.getVar("api","ColdboxDocs-3.0.0");
+		var searchMethodNames = event.getValue("methodNames",false);
+		var searchClassNames = event.getValue("classNames",false);
+		prc.results = APISearchService.search(api,rc.searchString,searchMethodNames,searchClassNames);
+		event.renderData(data=renderView('search/search'));
 	}
 
-	function switchAPI(event) {
-		var rc = event.getCollection();
-		var prc = event.getCollection(private=true);
-		getPlugin("cookieStorage").setVar("api",rc.api);
+	function switchAPI(event,rc,prc) {
+		CookieStorage.setVar("api",rc.api);
 		getPlugin("MessageBox").info("API switched to #rc.api#");
 		setNextEvent('cbQuickDocs.search.index');
 	}
