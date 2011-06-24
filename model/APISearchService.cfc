@@ -38,7 +38,7 @@
 		</cfscript>
 		<cfif searchMethodNames>
 			<cfquery name="methodresults" dbtype="query">
-				select * from qryAllApi
+				select methodName, className, classPath, link, 'method' as type from qryAllApi
 				where
 					LOWER(methodName) like <cfqueryparam value="%#lcase(searchString)#%" >
 			</cfquery>
@@ -46,7 +46,7 @@
 		</cfif>
 		<cfif searchClassNames>
 			<cfquery name="classresults" dbtype="query">
-				select * from qryAllApi
+				select methodName, className, classPath, link, 'class' as type from qryAllApi
 				where
 					LOWER(className) like <cfqueryparam value="%#lcase(searchString)#%" >
 			</cfquery>
@@ -56,6 +56,36 @@
 			<cfset searchresults = queryHelper.doQueryAppend(methodresults,classresults)>
 		</cfif>
 		<cfreturn searchresults />
+	</cffunction>
+
+	<cffunction name="searchNames" access="public" returnType="Array" output="false" hint="I return an array of names from a searchString based on the api">
+		<cfargument name="API" required="true" hint="The API to search">
+		<cfargument name="searchString" required="true" hint="The string to search on">
+		<cfargument name="searchMethodNames" required="true" hint="The string to search on">
+		<cfargument name="searchClassNames" required="true" hint="The string to search on">
+		<!--- get all the results based on the searchString --->
+		<cfset var results = search(API,searchString,searchMethodNames,searchClassNames) />
+		<cfset var classresults = queryNew("new") />
+		<cfset var methodresults = queryNew("new") />
+		<cfset var max = 10 />
+		<cfif searchMethodNames and searchClassNames>
+			<cfset max = 5 />
+		</cfif>
+		<!--- get the top 10 unqiue class names  --->
+		<cfquery name="classNames" dbtype="query" maxrows="#max#">
+			select distinct className from results where type='class'
+		</cfquery>
+		<!--- get the top 10 unqiue method names  --->
+		<cfquery name="methodNames" dbtype="query" maxrows="#max#">
+			select distinct methodName from results where type='method'
+		</cfquery>
+		<!--- combine the results --->
+		<cfset var data = [] />
+		<cfset var arClassNames = listToArray(valueList(classNames.className)) />
+		<cfset var arMethodNames = listToArray(valueList(methodNames.methodName)) />
+		<cfset data.addAll(arClassNames) />
+		<cfset data.addAll(arMethodNames) />
+		<cfreturn data />
 	</cffunction>
 
 	<cffunction name="getAvailableAPIs" access="public" returntype="Array" output="false" hint="Return an array of the avaiable APIs in the system">
