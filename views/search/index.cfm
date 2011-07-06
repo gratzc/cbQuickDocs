@@ -11,6 +11,10 @@
 				<label for="classNames">Search Class Names</label><input type="checkbox" name="classNames" checked="true" value="true" />
 				<input name="b" type="image" src="<cfoutput>#event.getModuleRoot()#</cfoutput>/includes/images/search.gif" class="button">
 			</label>
+			<input type="text" name="searchString" id="searchString">
+			<label for="methodNames">Search Method Names</label><input type="checkbox" name="methodNames" id="methodNames" checked="true" value="true" />
+			<label for="classNames">Search Class Names</label><input type="checkbox" name="classNames" id="classNames" checked="true" value="true" />
+			<input type="submit" id="submit" value="search">
 		</form>
 	</div>
 	<div>
@@ -35,12 +39,38 @@
 		$(document).ready(function(){
 			//ajax to submit the form and populate the results div
 			$("##searchForm").submit(function() {
-				$.post($(this).attr("action"),$(this).serialize(),function(data){
-					$("##results").html(data);
-					$("a[rel='colorbox']").colorbox({transition:"elastic", width:"75%", height:"75%", opacity:"0.55", iframe: true});
-				});
+				var mChecked = $('##methodNames').is(':checked');
+				var cChecked = $('##classNames').is(':checked');
+				if (mChecked || cChecked) {
+					$.post($(this).attr("action"),$(this).serialize(),function(data){
+						$("##results").html(data);
+						$("a[rel='colorbox']").colorbox({transition:"elastic", width:"75%", height:"75%", opacity:"0.55", iframe: true});
+					});
+				} else {
+					alert('You must check one of the available search types.');
+				}
 				return false;
 			})
+			$("##searchString").autocomplete({
+				source: function(request, response) {
+					$.ajax({
+						url: "#event.buildLink(prc.xehSearchNames)#",
+						dataType: "json",
+						data: {
+							term: request.term,
+							methodNames: $('##methodNames').is(':checked'),
+							classNames: $('##classNames').is(':checked')
+						},
+						success: function(data) {
+							response(data);
+						}
+					});
+        	},
+				select: function(event,ui){
+					$("##searchForm").submit();
+				},
+				minLength:2,
+			});
 		});
 	</script>
 </cfoutput>
