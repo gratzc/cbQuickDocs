@@ -2,7 +2,7 @@
 
 	<!---dependencies--->
 	<cfproperty name="cache" inject="coldbox:cacheManager">
-	<cfproperty name="queryHelper" inject="coldbox:plugin:queryHelper">
+	<cfproperty name="queryHelper" inject="coldbox:plugin:QueryHelper">
 
 <!------------------------------------------- CONSTRUCTOR ------------------------------------------->
 
