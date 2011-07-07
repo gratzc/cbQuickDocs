@@ -1,4 +1,4 @@
-﻿<div>
+﻿<div class="searchResults">
 <cfif prc.results.recordcount LTE 0>
 	<h3>Sorry, there is nothing pertaining to <em>"<cfoutput>#rc.searchString#</cfoutput>"</em> in this API</h3>
 <cfelseif prc.results.recordcount EQ 1>
@@ -6,17 +6,29 @@
 		<iframe src="#prc.results.link#" width="100%" height="100%"></iframe>
 	</cfoutput>
 <cfelse>
-	<cfoutput query="prc.results" group="className">
+	<table class="tablelisting">
+		<tr>
+			<th>Method:</th>
+			<th>Class:</th>
+			<th>Path:</th>
+		</tr>
+		<cfoutput query="prc.results" group="className">
 		<cfif type EQ "Method">
 			<cfoutput>
-				<div>Method: <a href="#link#" class="api_link" rel="colorbox">#methodName#</a></div>
-				<div>Class: <a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></div>
-				<div>Path: #classPath#</div>
+				<tr>
+					<td><a href="#link#" class="api_link" rel="colorbox">#methodName#</a></td>
+					<td><a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></td>
+					<td>#classPath#</td>
+				</tr>
 			</cfoutput>
 		<cfelse>
-			<div>Class: <a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></div>
-			<div>Path: #classPath#</div>
+			<tr>
+				<td>N/A</td>
+				<td><a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></td>
+				<td>#classPath#</td>
+			</tr>
 		</cfif>
-	</cfoutput>
+		</cfoutput>
+	</table>
 </cfif>
 </div>

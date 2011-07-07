@@ -8,6 +8,10 @@ component{
 
 	function index(event,rc,prc){
 
+	}
+
+	function searchForm(event,rc,prc){
+
 		//set the current API and the available APIs
 		prc.api = CookieStorage.getVar("api","ColdboxDocs-3.0.0");
 		prc.APIs = APISearchService.getAvailableAPIs();
@@ -16,6 +20,8 @@ component{
 		prc.xehSearch = "cbQuickDocs.search.search";
 		prc.xehSwitchAPI = "cbQuickDocs.search.switchAPI";
 		prc.xehSearchNames = "cbQuickDocs.search.searchNames";
+
+		return renderView('search/searchForm');
 	}
 
 	function search(event,rc,prc){
