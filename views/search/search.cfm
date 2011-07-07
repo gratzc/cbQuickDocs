@@ -17,14 +17,14 @@
 			<cfoutput>
 				<tr>
 					<td><a href="#link#" class="api_link" rel="colorbox">#methodName#</a></td>
-					<td><a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></td>
+					<td><a href="#classLink#" class="api_link" rel="colorbox">#className#</a></td>
 					<td>#classPath#</td>
 				</tr>
 			</cfoutput>
 		<cfelse>
 			<tr>
 				<td>N/A</td>
-				<td><a href="#listFirst(link,"##")#" class="api_link" rel="colorbox">#className#</a></td>
+				<td><a href="#classLink#" class="api_link" rel="colorbox">#className#</a></td>
 				<td>#classPath#</td>
 			</tr>
 		</cfif>

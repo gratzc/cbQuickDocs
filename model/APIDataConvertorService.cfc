@@ -79,7 +79,7 @@
 						//ignore init and skip top
 						if(methodName NEQ "init" and methodName NEQ "skip-navbar_top") {
 							//add the method to our list of methods for this API and collect its meta data
-							var method = {link=methodLink,methodName=methodName,classPath=classPath,className=className};
+							var method = {link=methodLink,methodName=methodName,classPath=classPath,className=className,classLink=link};
 							arrayAppend(methods,method);
 						}
 					}

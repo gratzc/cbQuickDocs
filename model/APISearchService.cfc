@@ -38,7 +38,7 @@
 		</cfscript>
 		<cfif searchMethodNames>
 			<cfquery name="methodresults" dbtype="query">
-				select methodName, className, classPath, link, 'method' as type from qryAllApi
+				select methodName, className, classPath, classLink, link, 'method' as type from qryAllApi
 				where
 					LOWER(methodName) like <cfqueryparam value="%#lcase(searchString)#%" >
 			</cfquery>
@@ -46,7 +46,7 @@
 		</cfif>
 		<cfif searchClassNames>
 			<cfquery name="classresults" dbtype="query">
-				select methodName, className, classPath, link, 'class' as type from qryAllApi
+				select methodName, className, classPath, classLink, link, 'class' as type from qryAllApi
 				where
 					LOWER(className) like <cfqueryparam value="%#lcase(searchString)#%" >
 			</cfquery>
