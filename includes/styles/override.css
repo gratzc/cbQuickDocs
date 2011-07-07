@@ -1,0 +1,65 @@
+body { background:#85c1dd url(../../includes/images/main_bg.gif) top center repeat-x; }
+
+.FBG { background: none;}
+.blok_header { background: none; }
+
+.main {
+	min-width: 900px;
+}
+
+.logo {
+	width: 475px;
+}
+
+.search {
+	width: 205px;
+	padding: 10px 0;
+}
+
+.searchOptions {
+	background-color: #eee;
+	border-radius: .7em;
+	-webkit-border-radius: .7em;
+	-webkit-box-shadow: 0.25em 0.25em 1em rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: rgba(0, 0, 0, 0.25) 0.25em 0.25em 1em;
+	padding: 10px;
+}
+
+.search form {
+	background-color: transparent;
+}
+
+.search label {
+	display: inline-block;
+	clear: both;
+	font-weight: bold;
+	margin: 2px 0;
+}
+
+.search select {
+	width: 181px;
+	height: 28px;
+	border: 0;
+	padding: 3px 2px 2px 2px;
+	margin: 0;
+	border-radius: .4em;
+	-webkit-border-radius: .4em;
+	font: normal 12px Arial, Helvetica, sans-serif;
+	color: #000;
+}
+
+.searchResults table {
+	width: 100%;
+}	
+
+.body_bg {
+	padding: 10px;
+}
+
+.ui-autocomplete .ui-menu-item a {
+	cursor: pointer;
+}
+
+.ui-autocomplete .ui-menu-item {
+	font-size: .8em;
+}
