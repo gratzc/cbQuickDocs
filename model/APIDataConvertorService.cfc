@@ -7,7 +7,7 @@
 	<cfproperty name="cache" inject="coldbox:cacheManager">
 
 	<!--- set a long request timeout as this takes a while --->
-	<cfsetting requestTimeout="3600" />
+	<cfsetting requestTimeout="36000" />
 
 	<cffunction name="init" access="public" returntype="APIDataConvertorService" output="false" hint="constructor">
 		<cfscript>
