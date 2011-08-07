@@ -96,7 +96,7 @@
 			<cfset arrayAPIs = cache.get(cacheKey) />
 		<cfelse>
 			<cfset var dir = getDirectoryFromPath(getCurrentTemplatePath()) & "data/" />
-			<cfdirectory action="list" directory="#dir#" name="APIs" />
+			<cfdirectory action="list" directory="#dir#" name="APIs" sort="asc" />
 			<cfset var arrayAPIs = [] />
 			<cfoutput query="APIs">
 				<cfset arrayAppend(arrayAPIs,left(name,len(name)-5)) />
