@@ -57,14 +57,9 @@ component {
 
 	function configure(){
 
-		// parent settings
-		parentSettings = {
-
-		};
-
 		// module settings - stored in modules.name.settings
 		settings = {
-
+			defaultAPI = "ColdBoxDocs-3.1.0"
 		};
 
 		// Layout Settings
@@ -72,31 +67,21 @@ component {
 			defaultLayout = "Layout.cbQuickDocs.cfm"
 		};
 
-		// datasources
-		datasources = {
-
-		};
-
-		// web services
-		webservices = {
-
-		};
-
 		// SES Routes
 		routes = [
 			//{pattern="/api-docs", handler="api",action="index"}
 		];
 
-		// Custom Declared Points
-		interceptorSettings = {
-			customInterceptionPoints = ""
-		};
-
-		// Custom Declared Interceptors
-		interceptors = [
-		];
-
 	}
+	
+	/**
+	* Event Caching mixin of api selection for event caching uniqueness
+	*/ 
+	function onRequestCapture(event,interceptData){
+		var rc = event.getCollection();
+		rc._selectedAPI = controller.getPlugin("CookieStorage").getVar("api", settings.defaultAPI);
+	}
+	
 
 	/**
 	* Fired when the module is registered and activated.
