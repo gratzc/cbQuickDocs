@@ -1,6 +1,6 @@
 ﻿<div class="searchResults">
 <cfif prc.results.recordcount LTE 0>
-	<h3>Sorry, there is nothing pertaining to <em>"<cfoutput>#rc.searchString#</cfoutput>"</em> in this API</h3>
+	<h3>Sorry, there is nothing pertaining to <em>"<cfoutput>#getPlugin("AntiSamy").htmlSanitizer( rc.searchString )#</cfoutput>"</em> in this API</h3>
 <cfelseif prc.results.recordcount EQ 1>
 	<cfoutput>
 		<iframe src="#prc.results.link#" width="100%" height="100%"></iframe>
