@@ -53,7 +53,7 @@ component{
 
 	function switchAPI(event,rc,prc) {
 		CookieStorage.setVar("api",rc.api);
-		getPlugin("MessageBox").info("API set to #rc.api#");
+		getPlugin("MessageBox").info("API set to #getPlugin("AntiSamy").htmlSanitizer(rc.api)#");
 		setNextEvent('cbQuickDocs.search.index');
 	}
 
